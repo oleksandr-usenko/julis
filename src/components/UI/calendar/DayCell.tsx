@@ -1,12 +1,15 @@
+import styles from "./DayCell.module.css";
+
 type DayCellProps = {
-    day?: number | string;
+    day?: Date | string;
     className?: string;
     children?: React.ReactNode;
+    isToday?: boolean;
 }
 
 const DayCell = (props: DayCellProps) => {
     return (
-        <div className={props.className + ` w-[14.5%]`}>
+        <div className={`${styles.dayCell} ${props.isToday && styles.today}`}>
             {props.children}
         </div>
     )

@@ -1,50 +1,57 @@
-import {getDaysInMonth} from "date-fns";
+import {addDays, endOfMonth, endOfWeek, format, isSameDay, startOfMonth, startOfWeek} from "date-fns";
 import DayCell from "./DayCell.tsx";
+import {useEffect, useState} from "react";
 
-// makeDateCells(fromMoment) {
-//     this.daysCells = [];
-//     this.month = fromMoment.getMonth();
-//     this.year = fromMoment.getFullYear();
-//     const FIRST_DAY = new Date(fromMoment.setDate(0));
-//     const LAST_DAY = new Date(new Date(this.year, this.month + 1, 0));
-//     const DAYS_OF_PREV_MONTH = FIRST_DAY.getDay();
-//     const DAYS_IN_PREV_MONTH = new Date(this.year, this.month, 0).getDate();
-//     const DAYS_IN_CURRENT_MONTH = LAST_DAY.getDate();
-//     for (let i = DAYS_OF_PREV_MONTH; i > 0; i--) {
-//         this.daysCells.push({
-//             value: DAYS_IN_PREV_MONTH - i + 1,
-//             month: this.month - 1,
-//         });
-//     }
-//     for (let i = 1; i <= DAYS_IN_CURRENT_MONTH; i++) {
-//         this.daysCells.push({ value: i, month: this.month });
-//     }
-//     // 35 is the number of days for 5-weeks calendar view;
-//     // 42 is the number of days for 6-weeks view
-//     const EXTRA_DAYS_TO_FILL =
-//         42 - (DAYS_OF_PREV_MONTH + DAYS_IN_CURRENT_MONTH);
-//     for (let i = 1; i <= EXTRA_DAYS_TO_FILL; i++) {
-//         this.daysCells.push({ value: i, month: this.month + 1 });
-//     }
-// },
+type CalendarProps = {
+    date: Date;
+}
 
-const Calendar = () => {
+const Calendar = (props: CalendarProps) => {
+    const today = new Date();
+    let monthStart: Date;
+    let monthEnd: Date;
+    let startDate: Date;
+    let endDate: Date;
 
-    const days = Array(getDaysInMonth(new Date())).fill(0);
-    console.log(days);
+    const [days, setDays] = useState<Date[]>([]);
+
+    useEffect(() => {
+        monthStart = startOfMonth(props.date);
+        monthEnd = endOfMonth(props.date);
+        console.log(props.date);
+
+        startDate = startOfWeek(monthStart, { weekStartsOn: 1 });
+
+        endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
+
+        const generateDays = () => {
+            const _days = [];
+            let day = startDate;
+
+            while (day <= endDate) {
+                _days.push(day);
+                day = addDays(day, 1);
+            }
+
+            return _days;
+        };
+
+        setDays(generateDays());
+    }, [props.date]);
+
     return (
         <div>
             <div className="flex text-center">
-                <DayCell className="grow">Mon</DayCell>
-                <DayCell className="grow">Tue</DayCell>
-                <DayCell className="grow">Wed</DayCell>
-                <DayCell className="grow">Thu</DayCell>
-                <DayCell className="grow">Fri</DayCell>
-                <DayCell className="grow">Sat</DayCell>
-                <DayCell className="grow">Sun</DayCell>
+                <DayCell>Mon</DayCell>
+                <DayCell>Tue</DayCell>
+                <DayCell>Wed</DayCell>
+                <DayCell>Thu</DayCell>
+                <DayCell>Fri</DayCell>
+                <DayCell>Sat</DayCell>
+                <DayCell>Sun</DayCell>
             </div>
             <div className="flex flex-wrap">
-                {days.map((_, index) => <DayCell key={index}>{index}</DayCell>)}
+                {days.map((day, index) => <DayCell isToday={isSameDay(today, day)} day={day} key={index}>{format(day, "d")}</DayCell>)}
             </div>
         </div>
     )

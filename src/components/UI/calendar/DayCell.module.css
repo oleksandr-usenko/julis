@@ -1,0 +1,8 @@
+.dayCell {
+    width: calc(100% / 7);
+    text-align: center;
+}
+
+.today {
+    background: blue;
+}
