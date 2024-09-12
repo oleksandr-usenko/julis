@@ -2,10 +2,16 @@ import {Button} from "@mui/material";
 import Calendar from "../UI/calendar/Calendar.tsx";
 import {useState} from "react";
 import {addMonths, format, subMonths} from "date-fns";
+import {test} from "../../services/api.ts";
 
 const Booking = () => {
 
     const [date, setDate] = useState(new Date());
+
+    const bookings = test().then(res => {
+        console.log(res);
+    });
+    console.log(bookings);
 
     return (
         <>
