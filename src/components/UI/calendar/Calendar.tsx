@@ -18,7 +18,6 @@ const Calendar = (props: CalendarProps) => {
     useEffect(() => {
         monthStart = startOfMonth(props.date);
         monthEnd = endOfMonth(props.date);
-        console.log(props.date);
 
         startDate = startOfWeek(monthStart, { weekStartsOn: 1 });
 

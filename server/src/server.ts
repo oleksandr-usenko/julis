@@ -6,6 +6,7 @@ import { Booking, IBooking } from './models/Booking';
 import bcrypt from 'bcrypt';
 import { User } from './models/User';
 import booking from "./routes/booking";
+import auth from "./routes/auth";
 
 // Create the express app
 export const app = express();
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api', booking);
+app.use('/api/auth', auth);
 
 // Connect to MongoDB (use your own connection string)
 const MONGO_URI = 'mongodb+srv://olexandrusenko:TRokzNXtkU13iWOk@cluster0.8ukam.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';

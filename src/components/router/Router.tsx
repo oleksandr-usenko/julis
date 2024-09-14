@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom";
 import Home from "../pages/Home.tsx";
-import Booking from "../pages/Booking.tsx";
+import Booking from "../pages/booking/Booking.tsx";
 
 const Router = () => {
     return (
