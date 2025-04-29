@@ -6,8 +6,10 @@ import { User } from '../models/User';
 const router = express.Router();
 
 // Sign Up Route
-router.post('/signup', async (req, res) => {
+router.post('/register', async (req, res) => {
     const { email, password } = req.body;
+    console.log(email, password);
+    debugger;
 
     try {
         // Check if the user already exists
@@ -34,7 +36,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // Sign In Route
-router.post('/signin', async (req, res) => {
+router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {

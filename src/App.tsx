@@ -1,16 +1,17 @@
-import Header from "./components/layout/Header.tsx";
-import {Outlet} from "react-router-dom";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import {Outlet} from "react-router-dom";
+import {CssBaseline, ThemeProvider} from "@mui/material";
+import theme from "./theme.ts";
 
 function App() {
   return (
-    <>
-        <Header />
-        <Outlet/>
-    </>
+    <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Outlet />
+    </ThemeProvider>
   )
 }
 
