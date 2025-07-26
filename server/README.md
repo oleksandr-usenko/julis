@@ -1,1 +1,0 @@
-To start server run `npx ts-node-dev src/server.ts`
