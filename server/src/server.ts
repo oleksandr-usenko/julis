@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { Booking, IBooking } from './models/Booking';
 import bcrypt from 'bcrypt';
@@ -19,8 +20,10 @@ app.use(express.json());
 app.use('/api', booking);
 app.use('/api/auth', auth);
 
+dotenv.config();
+
 // Connect to MongoDB (use your own connection string)
-const MONGO_URI = 'mongodb+srv://olexandrusenko:TRokzNXtkU13iWOk@cluster0.8ukam.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const MONGO_URI = process.env.MONGO_URI as string;
 mongoose.connect(MONGO_URI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));

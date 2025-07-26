@@ -1,6 +1,7 @@
 import axios from "axios";
 
+export const SERVER_BASE = "http://localhost:8080";
 export const HTTP = axios.create({
-    baseURL: 'http://localhost:3000',
+  baseURL: SERVER_BASE,
 });
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.post["Content-Type"] = "application/json";

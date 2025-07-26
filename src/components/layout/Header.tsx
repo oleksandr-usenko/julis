@@ -1,18 +1,28 @@
 import {Link} from "react-router-dom";
+import {LanguageSwitcher} from "../UI/LanguageSwitcher.tsx";
+import {useTranslation} from "react-i18next";
 
 const Header = () => {
-    return (<header className="bg-blue-300">
+    const { t } = useTranslation();
+    return (<header className="bg-blue-300 flex justify-between">
+        <div></div>
         <ul className="flex justify-center gap-4">
             <li>
-                <Link to={"/"}>Home</Link>
+                <Link to={"/"}>{t("navigation.home")}</Link>
             </li>
             <li>
-                <Link to="/book">Book</Link>
+                <Link to={"/services"}>{t("navigation.services")}</Link>
             </li>
             <li>
-                <Link to="/auth">Logout</Link>
+                <Link to="/book">{t("navigation.bookings")}</Link>
+            </li>
+            <li>
+                <Link to="/auth">{t("navigation.logout")}</Link>
             </li>
         </ul>
+        <div>
+            <LanguageSwitcher/>
+        </div>
     </header>)
 }
 

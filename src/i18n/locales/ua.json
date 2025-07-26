@@ -1,0 +1,7 @@
+{
+  "services": {
+    "addService": "Додати послугу",
+    "serviceTitle": "Назва",
+    "saveBtn": "Зберегти"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "bookings": "Bookings",
+    "logout": "Logout"
+  },
+  "services": {
+    "header": "Add new service",
+    "title": "Name",
+    "duration": "Duration",
+    "description": "Description",
+    "price": "Price",
+    "saveBtn": "Save"
+  }
+}
