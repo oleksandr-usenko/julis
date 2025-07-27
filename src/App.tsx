@@ -8,13 +8,12 @@ import theme from "./theme.ts";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { setNavigator } from "./utilities/navigation";
-import { setHTTPAuth } from "./services/api.ts";
 
 function App() {
   const navigate = useNavigate();
-  if (localStorage.getItem("accessToken") !== null) {
-    setHTTPAuth(localStorage.getItem("accessToken") || "");
-  }
+  // if (localStorage.getItem("accessToken") !== null) {
+  //   setHTTPAuth(localStorage.getItem("accessToken") || "");
+  // }
 
   useEffect(() => {
     console.log("init");

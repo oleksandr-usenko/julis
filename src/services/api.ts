@@ -20,13 +20,6 @@ type TAuthPayload = {
   password: string;
 };
 
-type TCreateServicePayload = {
-  name: string;
-  description: string;
-  duration: number;
-  price: number;
-};
-
 export const login = async (payload: TAuthPayload) => {
   return await HTTP.post(`/api/auth/login`, payload, { withCredentials: true });
 };
@@ -35,10 +28,18 @@ export const register = async (payload: TAuthPayload) => {
   return await HTTP.post(`/api/auth/signup`, payload);
 };
 
-export const createService = async (payload: TCreateServicePayload) => {
-  return await HTTP.post(`/api/services`, payload);
+export const createService = async (formData: FormData) => {
+  return await HTTP.post(`/api/services`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export const getServices = async () => {
   return await HTTP.get(`/api/services`);
+};
+
+export const uploadFile = async (file: FormData) => {
+  return await HTTP.post(`/api/upload`, file);
 };

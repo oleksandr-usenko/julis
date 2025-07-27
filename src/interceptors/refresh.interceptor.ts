@@ -10,9 +10,7 @@ function setAuthHeader(token: string) {
   HTTP.defaults.headers.common["Authorization"] = `${token}`;
 }
 
-// Call this on app startup
 if (accessToken) setAuthHeader(accessToken);
-// Helper to resolve or reject all queued requests
 const processQueue = (error: any, token: string | null = null) => {
   failedQueue.forEach((prom) => {
     if (error) {
@@ -33,7 +31,6 @@ HTTP.interceptors.response.use(
       originalRequest._retry = true;
 
       if (isRefreshing) {
-        // Push the request into queue while refresh is ongoing
         return new Promise((resolve, reject) => {
           failedQueue.push({
             resolve: (token: string) => {

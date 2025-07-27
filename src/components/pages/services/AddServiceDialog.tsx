@@ -8,6 +8,7 @@ import {
 import { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { createService } from "../../../services/api.ts";
+import { UIDropzone } from "../../UI/UIDropzone.tsx";
 
 interface DialogProps {
   open: boolean;
@@ -23,15 +24,24 @@ export const AddServiceDialog = (props: DialogProps) => {
   const [duration, setDuration] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
+
+  const handleFileChange = (eventFiles: File[]) => {
+    if (eventFiles.length > 0)
+      setFiles((oldFiles) => [...oldFiles, ...Array.from(eventFiles)]);
+  };
 
   const handleSave = (e: FormEvent) => {
     e.preventDefault();
-    createService({
-      name,
-      duration: +duration,
-      description,
-      price: +price,
-    }).then((res) => {
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("duration", duration);
+    formData.append("description", description);
+    formData.append("price", price);
+    files.forEach((file) => formData.append("media", file));
+
+    createService(formData).then((res) => {
       console.log(res);
       onSave(name);
     });
@@ -80,7 +90,7 @@ export const AddServiceDialog = (props: DialogProps) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
-
+          <UIDropzone handleFiles={handleFileChange} />
           <Button variant="contained" color="primary" type="submit">
             {t("services.saveBtn")}
           </Button>
