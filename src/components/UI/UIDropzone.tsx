@@ -1,12 +1,14 @@
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Typography, Paper } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   handleFiles: (f: File[]) => void;
 };
 
 export const UIDropzone = ({ handleFiles }: Props) => {
+  const { t } = useTranslation();
   const onDrop = useCallback((acceptedFiles: File[]) => {
     handleFiles(acceptedFiles); // Handle files here
   }, []);
@@ -27,9 +29,7 @@ export const UIDropzone = ({ handleFiles }: Props) => {
     >
       <input {...getInputProps()} />
       <Typography variant="body1">
-        {isDragActive
-          ? "Drop the files here…"
-          : "Drag and drop files here, or click to select"}
+        {isDragActive ? t("ui.dropzone.hover") : t("ui.dropzone.label")}
       </Typography>
     </Paper>
   );

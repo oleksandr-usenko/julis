@@ -1,4 +1,5 @@
 import { HTTP } from "../utilities/http.ts";
+import { TService } from "../components/pages/services/types.ts";
 
 export function setHTTPAuth(token: string) {
   (HTTP.defaults.headers as any) = {
@@ -37,7 +38,7 @@ export const createService = async (formData: FormData) => {
 };
 
 export const getServices = async () => {
-  return await HTTP.get(`/api/services`);
+  return await HTTP.get<TService[]>(`/api/services`);
 };
 
 export const uploadFile = async (file: FormData) => {

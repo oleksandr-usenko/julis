@@ -2,6 +2,7 @@ import { Button, Typography } from "@mui/material";
 import { AddServiceDialog } from "./AddServiceDialog.tsx";
 import { useState } from "react";
 import { useGetMyServices } from "./queries/useGetMyServices.ts";
+import { ServiceItem } from "./ServiceItem.tsx";
 
 export const Services = () => {
   const [dialogOpened, setDialogOpened] = useState<boolean>(false);
@@ -18,6 +19,10 @@ export const Services = () => {
       <Typography variant="h4" component="div" gutterBottom>
         Services
       </Typography>
+      <div className="flex gap-2">
+        {services &&
+          services.map((service) => <ServiceItem service={service} />)}
+      </div>
       <Button
         variant="contained"
         color="primary"

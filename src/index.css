@@ -14,12 +14,15 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    --primary-color: #21392a;
+    --primary-color: #d97757;
     --secondary-color: blue;
     --light-color: #A8D5BA;
-    --sky-blue-color: #dbeafd;
+    /*--sky-blue-color: #dbeafd;*/
     --white-color: #fff;
     --font-main: 'Poppins', sans-serif;
+
+    --light-peach: #fefaf7;
+    --peach: #e8b4a0
 }
 
 html {
@@ -31,6 +34,27 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
-    background-color: var(--sky-blue-color);
+    background-color: var(--light-peach);
     font-family: var(--font-main), sans-serif;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    font-size: 16px !important;
+    -webkit-text-fill-color: var(--primary-color) !important;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: var(--primary-color);
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important; /* replace white with your bg if needed */
+    box-shadow: 0 0 0 1000px white inset !important;
+}
+
+input:-webkit-autofill::first-line {
+    font-size: 16px !important;
 }

@@ -5,12 +5,21 @@
     "bookings": "Bookings",
     "logout": "Logout"
   },
+  "ui": {
+    "dropzone": {
+      "hover": "Drop the files here…",
+      "label": "Drag and drop files here, or click to select"
+    }
+  },
   "services": {
-    "header": "Add new service",
-    "title": "Name",
-    "duration": "Duration",
-    "description": "Description",
-    "price": "Price",
-    "saveBtn": "Save"
+    "add": {
+      "header": "Add new service",
+      "title": "Name",
+      "duration": "Duration",
+      "description": "Description",
+      "price": "Price",
+      "saveBtn": "Save"
+    },
+    "title": "Services"
   }
 }

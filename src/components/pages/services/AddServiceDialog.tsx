@@ -49,7 +49,7 @@ export const AddServiceDialog = (props: DialogProps) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{t("services.header")}</DialogTitle>
+      <DialogTitle>{t("services.add.header")}</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSave}>
           <TextField
@@ -57,7 +57,7 @@ export const AddServiceDialog = (props: DialogProps) => {
             margin="normal"
             className="w-full"
             type="text"
-            label={t("services.title")}
+            label={t("services.add.title")}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -66,7 +66,7 @@ export const AddServiceDialog = (props: DialogProps) => {
             margin="normal"
             className="w-full"
             type="text"
-            label={t("services.description")}
+            label={t("services.add.description")}
             multiline
             maxRows={4}
             value={description}
@@ -77,7 +77,7 @@ export const AddServiceDialog = (props: DialogProps) => {
             margin="normal"
             className="w-full"
             type="number"
-            label={t("services.duration")}
+            label={t("services.add.duration")}
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
           />
@@ -86,13 +86,13 @@ export const AddServiceDialog = (props: DialogProps) => {
             margin="normal"
             className="w-full"
             type="number"
-            label={t("services.price")}
+            label={t("services.add.price")}
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
           <UIDropzone handleFiles={handleFileChange} />
           <Button variant="contained" color="primary" type="submit">
-            {t("services.saveBtn")}
+            {t("services.add.saveBtn")}
           </Button>
         </form>
       </DialogContent>
