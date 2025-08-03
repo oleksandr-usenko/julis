@@ -1,17 +1,54 @@
-import { forwardRef } from "react";
-import { TextField, TextFieldProps } from "@mui/material";
+import { forwardRef, ReactNode } from "react";
+import { InputAdornment, TextField, TextFieldProps } from "@mui/material";
+
+type UIInputExtras = {
+  startAdornment?: ReactNode;
+  endAdornment?: ReactNode;
+};
 
 export type TextFieldWrapperProps = {
   helperText?: string;
   errorMessage?: string | null;
-} & TextFieldProps;
+  pattern?: string;
+} & TextFieldProps &
+  UIInputExtras;
 
 export const UIInput = forwardRef<HTMLInputElement, TextFieldWrapperProps>(
-  ({ errorMessage, helperText, ...rest }, ref) => {
+  (
+    {
+      errorMessage,
+      helperText,
+      InputProps,
+      startAdornment,
+      endAdornment,
+      ...rest
+    },
+    ref,
+  ) => {
     const isError = Boolean(errorMessage || rest.error);
     return (
       <TextField
         {...rest}
+        InputProps={{
+          ...InputProps,
+          startAdornment: startAdornment ? (
+            <InputAdornment
+              sx={{
+                color: "inherit",
+              }}
+              position="start"
+            >
+              {startAdornment}
+            </InputAdornment>
+          ) : (
+            InputProps?.startAdornment
+          ),
+          endAdornment: endAdornment ? (
+            <InputAdornment position="end">{endAdornment}</InputAdornment>
+          ) : (
+            InputProps?.endAdornment
+          ),
+        }}
         inputRef={ref}
         error={isError}
         helperText={errorMessage ?? helperText}
@@ -19,11 +56,15 @@ export const UIInput = forwardRef<HTMLInputElement, TextFieldWrapperProps>(
         sx={{
           ".MuiOutlinedInput-root": {
             borderRadius: "16px",
-            background: "#fff",
+            background: "#fefaf7",
           },
-          "& .MuiOutlinedInput-root.Mui-focused": {
-            background: "#e8b4a0",
+          ".MuiInputLabel-root": {
+            color: "#d9775780",
+            "&.Mui-focused, &.MuiFormLabel-filled": {
+              color: "#d97757",
+            },
           },
+          "& .MuiOutlinedInput-root.Mui-focused": {},
         }}
       />
     );

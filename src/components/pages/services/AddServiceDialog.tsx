@@ -1,19 +1,18 @@
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  TextField,
-} from "@mui/material";
-import { FormEvent, useState } from "react";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { createService } from "../../../services/api.ts";
 import { UIDropzone } from "../../UI/UIDropzone.tsx";
+import { UIInput } from "../../UI/UIInput.tsx";
+import { UIButton } from "../../UI/UIButton.tsx";
+import { Schedule } from "@mui/icons-material";
+import { TService } from "./types.ts";
 
 interface DialogProps {
   open: boolean;
   onSave: (value: any) => void;
   onClose: () => void;
+  service?: TService;
 }
 
 export const AddServiceDialog = (props: DialogProps) => {
@@ -25,6 +24,15 @@ export const AddServiceDialog = (props: DialogProps) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [files, setFiles] = useState<File[]>([]);
+
+  useEffect(() => {
+    if (props.service) {
+      setName(props.service.name);
+      setDescription(props.service.description || "");
+      setDuration(`${props.service.duration}`);
+      setPrice(`${props.service.price}`);
+    }
+  }, [open]);
 
   const handleFileChange = (eventFiles: File[]) => {
     if (eventFiles.length > 0)
@@ -48,22 +56,30 @@ export const AddServiceDialog = (props: DialogProps) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      sx={{
+        ".MuiDialog-paper.MuiPaper-rounded": {
+          borderRadius: "16px",
+        },
+      }}
+    >
       <DialogTitle>{t("services.add.header")}</DialogTitle>
       <DialogContent>
-        <form onSubmit={handleSave}>
-          <TextField
+        <form className="flex flex-col gap-4 pt-2" onSubmit={handleSave}>
+          <UIInput
             variant="outlined"
-            margin="normal"
+            margin="none"
             className="w-full"
             type="text"
             label={t("services.add.title")}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <TextField
+          <UIInput
             variant="outlined"
-            margin="normal"
+            margin="none"
             className="w-full"
             type="text"
             label={t("services.add.description")}
@@ -72,28 +88,35 @@ export const AddServiceDialog = (props: DialogProps) => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            className="w-full"
-            type="number"
-            label={t("services.add.duration")}
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            className="w-full"
-            type="number"
-            label={t("services.add.price")}
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
+          <div className="flex gap-4">
+            <UIInput
+              variant="outlined"
+              margin="none"
+              className="w-full"
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              label={t("services.add.duration")}
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+              startAdornment={<Schedule />}
+            />
+            <UIInput
+              variant="outlined"
+              margin="none"
+              className="w-full"
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              label={t("services.add.price")}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
           <UIDropzone handleFiles={handleFileChange} />
-          <Button variant="contained" color="primary" type="submit">
+          <UIButton variant="contained" color="primary" type="submit">
             {t("services.add.saveBtn")}
-          </Button>
+          </UIButton>
         </form>
       </DialogContent>
     </Dialog>

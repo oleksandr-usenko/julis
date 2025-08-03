@@ -19,9 +19,11 @@ export const Services = () => {
       <Typography variant="h4" component="div" gutterBottom>
         Services
       </Typography>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         {services &&
-          services.map((service) => <ServiceItem service={service} />)}
+          services.map((service) => (
+            <ServiceItem key={service.id} service={service} />
+          ))}
       </div>
       <Button
         variant="contained"
